@@ -42,6 +42,8 @@ public class TurnController {
 
     private void playTurn() {
         handleArrivals();                                      // step 1
+        waiter.beginTurn(currentTurn, restaurant);             // resets the task and snapshots READY orders
+        chef.beginTurn(currentTurn);
         ui.showTurnStart(currentTurn, maxTurns, restaurant);
         List<Customer> eatingAtTurnStart = customersEating();  // served on an earlier turn
         runWaiterTask();                                       // steps 2 + 3: Waiter acts before Chef
@@ -53,14 +55,22 @@ public class TurnController {
 
     /** Step 1: the scheduled customer (if any) joins the queue with satisfaction 100. */
     private void handleArrivals() {
-        // TODO: Customer arrival = arrivalSchedule.getArrival(currentTurn);
-        //       if not null: restaurant.addArrival(arrival); ui.showArrival(arrival)
+        Customer arrival = arrivalSchedule.getArrival(currentTurn);
+        if (arrival != null) {
+            restaurant.addArrival(arrival);
+            ui.showArrival(arrival);
+        }
     }
 
     /** Customers whose status is EATING right now, i.e. served on an earlier turn. */
     private List<Customer> customersEating() {
-        // TODO: filter restaurant.getCustomersInRestaurant() by status EATING
-        return new ArrayList<>();
+        List<Customer> eating = new ArrayList<>();
+        for (Customer customer : restaurant.getCustomersInRestaurant()) {
+            if (customer.getStatus() == CustomerStatus.EATING) {
+                eating.add(customer);
+            }
+        }
+        return eating;
     }
 
     /**
@@ -70,19 +80,22 @@ public class TurnController {
      * acted yet, so a dish finished this turn cannot be served this turn.
      */
     private void runWaiterTask() {
-        // TODO: ActionResult result;
-        //       do {
-        //           WaiterChoice choice = ui.askWaiterChoice(restaurant);
-        //           result = waiter.perform(choice, restaurant);
-        //           ui.showActionResult(result);
-        //       } while (!result.isSuccess());
+        ActionResult result;
+        do {
+            WaiterChoice choice = ui.askWaiterChoice(restaurant);
+            result = waiter.perform(choice, restaurant);
+            ui.showActionResult(result);
+        } while (!result.isSuccess());
     }
 
     /** Steps 2-3 for the Chef: advance one order by one preparation unit, or Wait. */
     private void runChefTask() {
-        // TODO: same re-ask loop as runWaiterTask, with
-        //       Order order = ui.askChefChoice(restaurant);   // null means Wait
-        //       result = chef.prepare(order);
+        ActionResult result;
+        do {
+            Order order = ui.askChefChoice(restaurant);    // null means Wait
+            result = chef.prepare(order);
+            ui.showActionResult(result);
+        } while (!result.isSuccess());
     }
 
     /**
@@ -90,10 +103,11 @@ public class TurnController {
      * READY_TO_PAY this turn cannot pay until next turn.
      */
     private void handleEatingAndPayment(List<Customer> eatingAtTurnStart) {
-        // TODO: ui.showActionResult(cashier.processPayment(restaurant));
-        //       for each customer in eatingAtTurnStart:
-        //           customer.finishEating();                 // -> READY_TO_PAY
-        //           restaurant.addToPaymentQueue(customer);
+        ui.showActionResult(cashier.processPayment(restaurant));
+        for (Customer customer : eatingAtTurnStart) {
+            customer.finishEating();                   // EATING -> READY_TO_PAY
+            restaurant.addToPaymentQueue(customer);
+        }
     }
 
     /**
@@ -102,13 +116,23 @@ public class TurnController {
      * Served, eating and ready-to-pay customers lose nothing.
      */
     private void handleWaitingAndAbandonment() {
-        // TODO: for each customer in a COPY of restaurant.getCustomersInRestaurant():
-        //           if status is WAITING, SEATED or ORDERED:
-        //               customer.loseSatisfaction();
-        //               if (customer.hasReachedZero()) {
-        //                   restaurant.recordDeparture(customer);
-        //                   ui.showDeparture(customer);
-        //               }
+        // getCustomersInRestaurant() returns a new list, so departures below do not disturb the loop
+        for (Customer customer : restaurant.getCustomersInRestaurant()) {
+            if (isWaitingForFood(customer)) {
+                customer.loseSatisfaction();
+                if (customer.hasReachedZero()) {
+                    restaurant.recordDeparture(customer);
+                    ui.showDeparture(customer);
+                }
+            }
+        }
+    }
+
+    private boolean isWaitingForFood(Customer customer) {
+        CustomerStatus status = customer.getStatus();
+        return status == CustomerStatus.WAITING
+                || status == CustomerStatus.SEATED
+                || status == CustomerStatus.ORDERED;
     }
 
     public int getCurrentTurn() {
