@@ -36,8 +36,33 @@ public class Order {
         status = (remainingUnits == 0) ? OrderStatus.READY : OrderStatus.IN_PROGRESS;
     }
 
-    public void markReady() { /* TODO */ }
-    public void markServed() { /* TODO */ }
-    public void markPaid() { /* TODO */ }
-    public void cancel() { /* TODO */ }
+    /** Only allowed once every prep unit is done. */
+    public void markReady() {
+        if (remainingUnits != 0 || !canAdvance()) {
+            throw new IllegalStateException("Order is not fully prepared (status " + status + ")");
+        }
+        status = OrderStatus.READY;
+    }
+
+    public void markServed() {
+        requireStatus(OrderStatus.READY);
+        status = OrderStatus.SERVED;
+    }
+
+    public void markPaid() {
+        requireStatus(OrderStatus.SERVED);
+        status = OrderStatus.PAID;
+    }
+
+    /** Used when a customer abandons: only unserved orders can be cancelled. */
+    public void cancel() {
+        if (status != OrderStatus.PLACED && status != OrderStatus.IN_PROGRESS && status != OrderStatus.READY) {
+            throw new IllegalStateException("Cannot cancel an order that is " + status);
+        }
+        status = OrderStatus.CANCELLED;
+    }
+
+    private void requireStatus(OrderStatus expected) {
+        if (status != expected) throw new IllegalStateException("Expected " + expected + " but was " + status);
+    }
 }
