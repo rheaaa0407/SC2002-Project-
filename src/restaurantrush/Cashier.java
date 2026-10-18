@@ -14,11 +14,13 @@ public class Cashier {
      * @return what happened, for the UI to display
      */
     public ActionResult processPayment(Restaurant restaurant) {
-        // TODO: Customer payer = restaurant.pollNextPayer();
-        //       if null -> success("Cashier: no one is ready to pay.")
-        //       Order order = restaurant.findOrderFor(payer);
-        //       restaurant.recordPayment(payer, order);
-        //       return success("Cashier collected " + Money.format(order.getBillCents()) + " from " + payer.getName())
-        return ActionResult.success("Cashier: no one is ready to pay.");
+        Customer payer = restaurant.pollNextPayer();
+        if (payer == null) {
+            return ActionResult.success("Cashier: no one is ready to pay.");
+        }
+        Order order = restaurant.findOrderFor(payer);
+        restaurant.recordPayment(payer, order);
+        return ActionResult.success("Cashier collected " + Money.format(order.getBillCents())
+                + " from Customer " + payer.getId() + ".");
     }
 }
