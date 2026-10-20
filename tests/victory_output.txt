@@ -1,0 +1,376 @@
+============================================================
+                   RESTAURANT RUSH  (Stage 1)
+============================================================
+Setting : 18 turns, 2 tables, Waiter x1, Chef x1, Cashier x1, arrivals on turns [1, 4, 7, 10, 13, 16]
+Menu    : Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units)
+Goal    : after turn 18, at least 4 paid customers, revenue at least $45.00, average satisfaction at least 60.
+Food    : customers choose their own dish by arrival order:
+          C1 Salad, C2 Burger, C3 Pasta, C4 Salad, C5 Burger, C6 Pasta.
+
+Commands  Waiter: S <id> seat | O <id> take order | V <id> serve | W wait
+          Chef  : C <id> cook that customer's order | W wait
+          (the ID can be left out when only one customer fits)
+
+>> C1 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 1 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> S 1
+  Waiter seated Customer 1 at Table 1.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 1:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 1/18
+
+======================= TURN 2 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: (empty)
+Tables:
+  Table 1: C1  sat 92  SEATED  order: not taken yet
+  Table 2: FREE
+Staff tasks available:
+  Waiter : O 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> O 1
+  Customer 1 ordered Salad for $9.00.
+Chef> C 1
+  Chef prepared one unit of Salad; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 2:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 2/18
+
+======================= TURN 3 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: (empty)
+Tables:
+  Table 1: C1  sat 84  ORDERED  order: Salad $9.00 READY
+  Table 2: FREE
+Staff tasks available:
+  Waiter : V 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> V 1
+  Waiter served Salad to Customer 1.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 3:  served 1 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 3/18
+
+>> C2 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 4 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C2 (sat 100)
+Tables:
+  Table 1: C1  sat 84  EATING  order: Salad $9.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C1)
+------------------------------------------------------------
+Waiter> S 2
+  Waiter seated Customer 2 at Table 2.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 4:  served 1 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 4/18
+
+======================= TURN 5 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: (empty)
+Tables:
+  Table 1: C1  sat 84  READY_TO_PAY  order: Salad $9.00 SERVED
+  Table 2: C2  sat 92  SEATED  order: not taken yet
+Staff tasks available:
+  Waiter : O 2 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C1
+------------------------------------------------------------
+Waiter> O 2
+  Customer 2 ordered Burger for $15.00.
+Chef> C 2
+  Chef prepared one unit of Burger; 0 remaining (READY).
+  Cashier collected $9.00 from Customer 1.
+------------------------------------------------------------
+End of turn 5:  served 1 | unhappy departures 0 | revenue $9.00 | avg satisfaction 84.0 | turns used 5/18
+
+======================= TURN 6 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 84.0   Paid: 1
+Waiting queue: (empty)
+Tables:
+  Table 1: FREE
+  Table 2: C2  sat 84  ORDERED  order: Burger $15.00 READY
+Staff tasks available:
+  Waiter : V 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> V 2
+  Waiter served Burger to Customer 2.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 6:  served 2 | unhappy departures 0 | revenue $9.00 | avg satisfaction 84.0 | turns used 6/18
+
+>> C3 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 7 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 84.0   Paid: 1
+Waiting queue: C3 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: C2  sat 84  EATING  order: Burger $15.00 SERVED
+Staff tasks available:
+  Waiter : S 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C2)
+------------------------------------------------------------
+Waiter> S 3
+  Waiter seated Customer 3 at Table 1.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 7:  served 2 | unhappy departures 0 | revenue $9.00 | avg satisfaction 84.0 | turns used 7/18
+
+======================= TURN 8 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 84.0   Paid: 1
+Waiting queue: (empty)
+Tables:
+  Table 1: C3  sat 92  SEATED  order: not taken yet
+  Table 2: C2  sat 84  READY_TO_PAY  order: Burger $15.00 SERVED
+Staff tasks available:
+  Waiter : O 3 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C2
+------------------------------------------------------------
+Waiter> O 3
+  Customer 3 ordered Pasta for $18.00.
+Chef> C 3
+  Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
+  Cashier collected $15.00 from Customer 2.
+------------------------------------------------------------
+End of turn 8:  served 2 | unhappy departures 0 | revenue $24.00 | avg satisfaction 84.0 | turns used 8/18
+
+======================= TURN 9 / 18 =======================
+Revenue: $24.00   Avg satisfaction (paid): 84.0   Paid: 2
+Waiting queue: (empty)
+Tables:
+  Table 1: C3  sat 84  ORDERED  order: Pasta $18.00 IN_PROGRESS (1 unit left)
+  Table 2: FREE
+Staff tasks available:
+  Waiter : W
+  Chef   : C 3 (Pasta, 1 left) | W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> C 3
+  Chef prepared one unit of Pasta; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 9:  served 2 | unhappy departures 0 | revenue $24.00 | avg satisfaction 84.0 | turns used 9/18
+
+>> C4 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 10 / 18 =======================
+Revenue: $24.00   Avg satisfaction (paid): 84.0   Paid: 2
+Waiting queue: C4 (sat 100)
+Tables:
+  Table 1: C3  sat 76  ORDERED  order: Pasta $18.00 READY
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 4 | V 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> V 3
+  Waiter served Pasta to Customer 3.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 10:  served 3 | unhappy departures 0 | revenue $24.00 | avg satisfaction 84.0 | turns used 10/18
+
+======================= TURN 11 / 18 =======================
+Revenue: $24.00   Avg satisfaction (paid): 84.0   Paid: 2
+Waiting queue: C4 (sat 92)
+Tables:
+  Table 1: C3  sat 76  EATING  order: Pasta $18.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C3)
+------------------------------------------------------------
+Waiter> S 4
+  Waiter seated Customer 4 at Table 2.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 11:  served 3 | unhappy departures 0 | revenue $24.00 | avg satisfaction 84.0 | turns used 11/18
+
+======================= TURN 12 / 18 =======================
+Revenue: $24.00   Avg satisfaction (paid): 84.0   Paid: 2
+Waiting queue: (empty)
+Tables:
+  Table 1: C3  sat 76  READY_TO_PAY  order: Pasta $18.00 SERVED
+  Table 2: C4  sat 84  SEATED  order: not taken yet
+Staff tasks available:
+  Waiter : O 4 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C3
+------------------------------------------------------------
+Waiter> O 4
+  Customer 4 ordered Salad for $9.00.
+Chef> C 4
+  Chef prepared one unit of Salad; 0 remaining (READY).
+  Cashier collected $18.00 from Customer 3.
+------------------------------------------------------------
+End of turn 12:  served 3 | unhappy departures 0 | revenue $42.00 | avg satisfaction 81.3 | turns used 12/18
+
+>> C5 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 13 / 18 =======================
+Revenue: $42.00   Avg satisfaction (paid): 81.3   Paid: 3
+Waiting queue: C5 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: C4  sat 76  ORDERED  order: Salad $9.00 READY
+Staff tasks available:
+  Waiter : S 5 | V 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> V 4
+  Waiter served Salad to Customer 4.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 13:  served 4 | unhappy departures 0 | revenue $42.00 | avg satisfaction 81.3 | turns used 13/18
+
+======================= TURN 14 / 18 =======================
+Revenue: $42.00   Avg satisfaction (paid): 81.3   Paid: 3
+Waiting queue: C5 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: C4  sat 76  EATING  order: Salad $9.00 SERVED
+Staff tasks available:
+  Waiter : S 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C4)
+------------------------------------------------------------
+Waiter> S 5
+  Waiter seated Customer 5 at Table 1.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 14:  served 4 | unhappy departures 0 | revenue $42.00 | avg satisfaction 81.3 | turns used 14/18
+
+======================= TURN 15 / 18 =======================
+Revenue: $42.00   Avg satisfaction (paid): 81.3   Paid: 3
+Waiting queue: (empty)
+Tables:
+  Table 1: C5  sat 84  SEATED  order: not taken yet
+  Table 2: C4  sat 76  READY_TO_PAY  order: Salad $9.00 SERVED
+Staff tasks available:
+  Waiter : O 5 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C4
+------------------------------------------------------------
+Waiter> O 5
+  Customer 5 ordered Burger for $15.00.
+Chef> C 5
+  Chef prepared one unit of Burger; 0 remaining (READY).
+  Cashier collected $9.00 from Customer 4.
+------------------------------------------------------------
+End of turn 15:  served 4 | unhappy departures 0 | revenue $51.00 | avg satisfaction 80.0 | turns used 15/18
+
+>> C6 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 16 / 18 =======================
+Revenue: $51.00   Avg satisfaction (paid): 80.0   Paid: 4
+Waiting queue: C6 (sat 100)
+Tables:
+  Table 1: C5  sat 76  ORDERED  order: Burger $15.00 READY
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 6 | V 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> V 5
+  Waiter served Burger to Customer 5.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 16:  served 5 | unhappy departures 0 | revenue $51.00 | avg satisfaction 80.0 | turns used 16/18
+
+======================= TURN 17 / 18 =======================
+Revenue: $51.00   Avg satisfaction (paid): 80.0   Paid: 4
+Waiting queue: C6 (sat 92)
+Tables:
+  Table 1: C5  sat 76  EATING  order: Burger $15.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C5)
+------------------------------------------------------------
+Waiter> S 6
+  Waiter seated Customer 6 at Table 2.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 17:  served 5 | unhappy departures 0 | revenue $51.00 | avg satisfaction 80.0 | turns used 17/18
+
+======================= TURN 18 / 18 =======================
+Revenue: $51.00   Avg satisfaction (paid): 80.0   Paid: 4
+Waiting queue: (empty)
+Tables:
+  Table 1: C5  sat 76  READY_TO_PAY  order: Burger $15.00 SERVED
+  Table 2: C6  sat 84  SEATED  order: not taken yet
+Staff tasks available:
+  Waiter : O 6 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C5
+------------------------------------------------------------
+Waiter> O 6
+  Customer 6 ordered Pasta for $18.00.
+Chef> C 6
+  Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
+  Cashier collected $15.00 from Customer 5.
+------------------------------------------------------------
+End of turn 18:  served 5 | unhappy departures 0 | revenue $66.00 | avg satisfaction 79.2 | turns used 18/18
+
+============================================================
+                        GAME OVER
+============================================================
+[OK] Paid customers     : 5  (need 4)
+[OK] Revenue            : $66.00  (need $45.00)
+[OK] Average satisfaction: 79.2  (need 60)
+     Served 5, unhappy departures 0, turns used 18/18
+
+*** VICTORY! The restaurant hit every target. ***
