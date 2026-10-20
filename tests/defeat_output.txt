@@ -1,0 +1,378 @@
+============================================================
+                   RESTAURANT RUSH  (Stage 1)
+============================================================
+Setting : 18 turns, 2 tables, Waiter x1, Chef x1, Cashier x1, arrivals on turns [1, 4, 7, 10, 13, 16]
+Menu    : Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units)
+Goal    : after turn 18, at least 4 paid customers, revenue at least $45.00, average satisfaction at least 60.
+Food    : customers choose their own dish by arrival order:
+          C1 Salad, C2 Burger, C3 Pasta, C4 Salad, C5 Burger, C6 Pasta.
+
+Commands  Waiter: S <id> seat | O <id> take order | V <id> serve | W wait
+          Chef  : C <id> cook that customer's order | W wait
+          (the ID can be left out when only one customer fits)
+
+>> C1 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 1 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 1:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 1/18
+
+======================= TURN 2 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 2:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 2/18
+
+======================= TURN 3 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 3:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 3/18
+
+>> C2 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 4 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 76), C2 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 4:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 4/18
+
+======================= TURN 5 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 68), C2 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 5:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 5/18
+
+======================= TURN 6 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 60), C2 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 6:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 6/18
+
+>> C3 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 7 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 52), C2 (sat 76), C3 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 7:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 7/18
+
+======================= TURN 8 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 44), C2 (sat 68), C3 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 8:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 8/18
+
+======================= TURN 9 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 36), C2 (sat 60), C3 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 9:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 9/18
+
+>> C4 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 10 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 28), C2 (sat 52), C3 (sat 76), C4 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | S 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 10:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 10/18
+
+======================= TURN 11 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 20), C2 (sat 44), C3 (sat 68), C4 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | S 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 11:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 11/18
+
+======================= TURN 12 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 12), C2 (sat 36), C3 (sat 60), C4 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | S 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 12:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 12/18
+
+>> C5 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 13 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C1 (sat 4), C2 (sat 28), C3 (sat 52), C4 (sat 76), C5 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 1 | S 2 | S 3 | S 4 | S 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+  !! C1 reached 0 satisfaction and left without paying.
+------------------------------------------------------------
+End of turn 13:  served 0 | unhappy departures 1 | revenue $0.00 | avg satisfaction N/A | turns used 13/18
+
+======================= TURN 14 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C2 (sat 20), C3 (sat 44), C4 (sat 68), C5 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 2 | S 3 | S 4 | S 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 14:  served 0 | unhappy departures 1 | revenue $0.00 | avg satisfaction N/A | turns used 14/18
+
+======================= TURN 15 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C2 (sat 12), C3 (sat 36), C4 (sat 60), C5 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 2 | S 3 | S 4 | S 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 15:  served 0 | unhappy departures 1 | revenue $0.00 | avg satisfaction N/A | turns used 15/18
+
+>> C6 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 16 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C2 (sat 4), C3 (sat 28), C4 (sat 52), C5 (sat 76), C6 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 2 | S 3 | S 4 | S 5 | S 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+  !! C2 reached 0 satisfaction and left without paying.
+------------------------------------------------------------
+End of turn 16:  served 0 | unhappy departures 2 | revenue $0.00 | avg satisfaction N/A | turns used 16/18
+
+======================= TURN 17 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C3 (sat 20), C4 (sat 44), C5 (sat 68), C6 (sat 92)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 3 | S 4 | S 5 | S 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 17:  served 0 | unhappy departures 2 | revenue $0.00 | avg satisfaction N/A | turns used 17/18
+
+======================= TURN 18 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Waiting queue: C3 (sat 12), C4 (sat 36), C5 (sat 60), C6 (sat 84)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Waiter : S 3 | S 4 | S 5 | S 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 18:  served 0 | unhappy departures 2 | revenue $0.00 | avg satisfaction N/A | turns used 18/18
+
+============================================================
+                        GAME OVER
+============================================================
+[--] Paid customers     : 0  (need 4)
+[--] Revenue            : $0.00  (need $45.00)
+[--] Average satisfaction: N/A  (need 60)
+     Served 0, unhappy departures 2, turns used 18/18
+
+*** DEFEAT. At least one target was missed. ***
