@@ -1,6 +1,7 @@
 package restaurantrush;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Menu {
@@ -12,5 +13,6 @@ public class Menu {
         items.add(new MenuItem("Pasta", 1800, 2));
     }
 
-    public List<MenuItem> getItems() { return items; }
+    /** Read-only view, so other classes cannot change the menu. */
+    public List<MenuItem> getItems() { return Collections.unmodifiableList(items); }
 }
