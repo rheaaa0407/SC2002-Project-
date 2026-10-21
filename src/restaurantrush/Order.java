@@ -33,10 +33,14 @@ public class Order {
     public void advance() {
         if (!canAdvance()) throw new IllegalStateException("Cannot prepare an order that is " + status);
         remainingUnits--;
-        status = (remainingUnits == 0) ? OrderStatus.READY : OrderStatus.IN_PROGRESS;
+        if (remainingUnits == 0) {
+            markReady();
+        } else {
+            status = OrderStatus.IN_PROGRESS;
+        }
     }
 
-    /** Only allowed once every prep unit is done. */
+    /** Only allowed once every prep unit is done. Called by advance() on the last unit. */
     public void markReady() {
         if (remainingUnits != 0 || !canAdvance()) {
             throw new IllegalStateException("Order is not fully prepared (status " + status + ")");
