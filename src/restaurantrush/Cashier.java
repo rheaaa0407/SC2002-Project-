@@ -21,6 +21,6 @@ public class Cashier {
         Order order = restaurant.findOrderFor(payer);
         restaurant.recordPayment(payer, order);
         return ActionResult.success("Cashier collected " + Money.format(order.getBillCents())
-                + " from Customer " + payer.getId() + ".");
+                + " from " + payer.getTypeName() + " C" + payer.getId() + ".");
     }
 }
