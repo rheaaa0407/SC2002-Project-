@@ -48,7 +48,7 @@ public class ConsoleUI {
 
     public void showWelcome(GameConfig config) {
         out.println("============================================================");
-        out.println("                   RESTAURANT RUSH  (Stage 1)");
+        out.println("                   RESTAURANT RUSH  (Stage 2)");
         out.println("============================================================");
         out.println("Setting : " + config);
         out.println("Menu    : Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units)");
@@ -56,8 +56,13 @@ public class ConsoleUI {
                 + config.getTargetPaidCustomers() + " paid customers, revenue at least "
                 + Money.format(config.getTargetRevenueCents()) + ", average satisfaction at least "
                 + config.getTargetAverageSatisfaction() + ".");
-        out.println("Food    : customers choose their own dish by arrival order:");
+        out.println("Guests  : Regular loses 8 satisfaction per waiting turn, pays full price.");
+        out.println("          VIP loses 5 per waiting turn, gets 10% off the bill.");
+        out.println("          Critic loses 12 per waiting turn, pays full price.");
+        out.println("Food    : customers choose their own dish, never the manager.");
+        out.println("          Regular and VIP choose by arrival order:");
         out.println("          C1 Salad, C2 Burger, C3 Pasta, C4 Salad, C5 Burger, C6 Pasta.");
+        out.println("          A Critic always orders Pasta.");
         out.println();
         out.println("Commands  Waiter: S <id> seat | O <id> take order | V <id> serve | W wait");
         out.println("          Chef  : C <id> cook that customer's order | W wait");
@@ -70,7 +75,7 @@ public class ConsoleUI {
 
     public void showArrival(Customer customer) {
         out.println();
-        out.println(">> C" + customer.getId() + " arrives and joins the waiting queue (satisfaction "
+        out.println(">> " + label(customer) + " arrives and joins the waiting queue (satisfaction "
                 + customer.getSatisfaction() + ").");
     }
 
@@ -89,7 +94,7 @@ public class ConsoleUI {
             for (int i = 0; i < queue.size(); i++) {
                 Customer c = queue.get(i);
                 if (i > 0) q.append(", ");
-                q.append("C").append(c.getId()).append(" (sat ").append(c.getSatisfaction()).append(")");
+                q.append(label(c)).append(" (sat ").append(c.getSatisfaction()).append(")");
             }
         }
         out.println(q);
@@ -111,7 +116,7 @@ public class ConsoleUI {
         if (table.isFree()) return head + "FREE";
         Customer c = table.getCustomer();
         StringBuilder sb = new StringBuilder(head);
-        sb.append("C").append(c.getId())
+        sb.append(label(c))
           .append("  sat ").append(c.getSatisfaction())
           .append("  ").append(c.getStatus());
         Order order = c.getOrder();
@@ -328,6 +333,11 @@ public class ConsoleUI {
                     + " " + candidates.get(0) + ". Choose again.");
         }
         return null;
+    }
+
+    /** e.g. "VIP C2". The type name comes from the customer object, not a type check. */
+    private static String label(Customer customer) {
+        return customer.getTypeName() + " C" + customer.getId();
     }
 
     private static List<Integer> idsOf(List<Customer> customers) {
