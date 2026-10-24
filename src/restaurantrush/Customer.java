@@ -2,15 +2,15 @@ package restaurantrush;
 
 import java.util.Objects;
 
-/** Stage 1 regular customer. Stage 2 will introduce subclasses. */
-public class Customer {
+/** Shared customer lifecycle; subclasses supply their own behaviour. */
+public abstract class Customer {
     private final int id;
     private int satisfaction;
     private CustomerStatus status;
     private Table table;
     private Order order;
 
-    public Customer(int id) {
+    protected Customer(int id) {
         if (id <= 0) throw new IllegalArgumentException("Customer ID must be positive");
         this.id = id;
         this.satisfaction = 100;
@@ -26,9 +26,23 @@ public class Customer {
     /** Only unserved waiting/seated/ordered customers lose satisfaction. */
     public void loseSatisfaction() {
         if (status == CustomerStatus.WAITING || status == CustomerStatus.SEATED || status == CustomerStatus.ORDERED) {
-            satisfaction = Math.max(0, satisfaction - 8);
+            satisfaction = Math.max(0, satisfaction - getWaitingLoss());
         }
     }
+
+    /** Satisfaction points lost each unserved turn. */
+    public abstract int getWaitingLoss();
+
+    /** Price in cents after this customer's own discount. */
+    public abstract int calculateBill(int priceCents);
+
+    /** Customer chooses food; manager does not choose it. */
+    public MenuItem chooseItem(Menu menu) {
+        Objects.requireNonNull(menu, "menu");
+        return new FoodChoiceRule().choose(id, menu);
+    }
+
+    public abstract String getTypeName();
 
     public boolean hasReachedZero() { return satisfaction == 0; }
 
