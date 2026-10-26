@@ -49,7 +49,7 @@ Staff tasks available:
   Cashier: automatic, nobody ready to pay
 ------------------------------------------------------------
 Waiter> Waiter> O 1
-  Customer 1 ordered Salad for $9.00.
+  Regular C1 ordered Salad for $9.00.
 Chef> C 1
   Chef prepared one unit of Salad; 0 remaining (READY).
   Cashier: no one is ready to pay.
@@ -108,7 +108,7 @@ Staff tasks available:
   Cashier: automatic, will charge the oldest of C1
 ------------------------------------------------------------
 Waiter> Waiter> O 2
-  Customer 2 ordered Burger for $13.50.
+  VIP C2 ordered Burger for $13.50.
 Chef> C 2
   Chef prepared one unit of Burger; 0 remaining (READY).
   Cashier collected $9.00 from Regular C1.
@@ -167,7 +167,7 @@ Staff tasks available:
   Cashier: automatic, will charge the oldest of C2
 ------------------------------------------------------------
 Waiter> Waiter> O 3
-  Customer 3 ordered Pasta for $18.00.
+  Regular C3 ordered Pasta for $18.00.
 Chef> C 3
   Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
   Cashier collected $13.50 from VIP C2.
@@ -245,7 +245,7 @@ Staff tasks available:
   Cashier: automatic, will charge the oldest of C3
 ------------------------------------------------------------
 Waiter> Waiter> O 4
-  Customer 4 ordered Pasta for $18.00.
+  Critic C4 ordered Pasta for $18.00.
 Chef> C 4
   Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
   Cashier collected $18.00 from Regular C3.
@@ -304,7 +304,7 @@ Staff tasks available:
   Cashier: automatic, nobody ready to pay  (eating: C4)
 ------------------------------------------------------------
 Waiter> Waiter> O 5
-  Customer 5 ordered Burger for $15.00.
+  Regular C5 ordered Burger for $15.00.
 Chef> C 5
   Chef prepared one unit of Burger; 0 remaining (READY).
   Cashier: no one is ready to pay.
@@ -363,7 +363,7 @@ Staff tasks available:
   Cashier: automatic, will charge the oldest of C5
 ------------------------------------------------------------
 Waiter> Waiter> O 6
-  Customer 6 ordered Pasta for $18.00.
+  Regular C6 ordered Pasta for $18.00.
 Chef> C 6
   Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
   Cashier collected $15.00 from Regular C5.
