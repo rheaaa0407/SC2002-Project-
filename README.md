@@ -2,16 +2,27 @@
 
 Turn-based restaurant management game (Java, command line).
 
+Repository: https://github.com/rheaaa0407/SC2002-Project-
+
 ## Build and run
 Requires JDK 17 or newer.
 
     javac -d out src/restaurantrush/*.java
     java -cp out restaurantrush.Main
 
-Replay a saved run (prints each command):
+Replay a saved Stage 2 run (prints each command):
 
-    java -cp out restaurantrush.Main --echo < tests/victory_run.txt
-    java -cp out restaurantrush.Main --echo < tests/defeat_run.txt
+    java -cp out restaurantrush.Main --echo < tests/stage2_victory_run.txt
+    java -cp out restaurantrush.Main --echo < tests/stage2_defeat_run.txt
+
+Replay the Stage 1 runs on the all-Regular schedule (Stage 1 regression check):
+
+    java -cp out restaurantrush.Stage1RegressionRunner --echo < tests/victory_run.txt
+    java -cp out restaurantrush.Stage1RegressionRunner --echo < tests/defeat_run.txt
+
+To run the regression runner, compile the tests too:
+
+    javac -d out src/restaurantrush/*.java tests/restaurantrush/*.java
 
 ## Commands
 Waiter: `S <id>` seat, `O <id>` take order, `V <id>` serve, `W` wait.

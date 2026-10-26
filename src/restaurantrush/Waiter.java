@@ -194,7 +194,7 @@ public class Waiter {
         restaurant.addOrder(order);
 
         return ActionResult.success(
-                "Customer " + id + " ordered " + item.getName()
+                customer.getTypeName() + " C" + id + " ordered " + item.getName()
                 + " for " + Money.format(order.getBillCents()) + ".");
     }
 
