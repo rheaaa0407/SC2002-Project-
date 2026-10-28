@@ -14,15 +14,18 @@ public class Main {
         GameConfig config = GameConfig.baseSetting();
         Restaurant restaurant = new Restaurant(config.getTableCount());
         ArrivalSchedule arrivals = new ArrivalSchedule(config);
-        Waiter waiter = new Waiter();
+        Menu menu = Menu.withCombos();
+        HappyHourPolicy happyHour = new HappyHourPolicy();     // shared: the controller switches it on,
+        Waiter waiter = new Waiter(menu, happyHour);           // the Waiter prices orders with it
+        Host host = new Host();
         Chef chef = new Chef();
         Cashier cashier = new Cashier();
         ResultEvaluator evaluator = new ResultEvaluator(config);
         ConsoleUI ui = new ConsoleUI(System.in, System.out, config, evaluator, echo);
 
-        ui.showWelcome(config);
-        TurnController controller = new TurnController(restaurant, arrivals, waiter, chef,
-                cashier, evaluator, ui, config.getMaxTurns());
+        ui.showWelcome(config, menu);
+        TurnController controller = new TurnController(restaurant, arrivals, host, waiter, chef,
+                cashier, happyHour, evaluator, ui, config.getMaxTurns());
         controller.runGame();
     }
 }

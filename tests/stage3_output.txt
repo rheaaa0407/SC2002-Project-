@@ -1,0 +1,471 @@
+============================================================
+                   RESTAURANT RUSH  (Stage 3)
+============================================================
+Setting : 18 turns, 2 tables, Waiter x1, Chef x1, Cashier x1, arrivals on turns [1, 4, 7, 10, 13, 16]
+Menu    : Salad $9.00 (1 unit)
+          Burger $15.00 (1 unit)
+          Pasta $18.00 (2 units)
+Goal    : after turn 18, at least 4 paid customers, revenue at least $45.00, average satisfaction at least 60.
+Guests  : Regular loses 8 satisfaction per waiting turn, pays full price.
+          VIP loses 5 per waiting turn, gets 10% off the bill.
+          Critic loses 12 per waiting turn, pays full price.
+Food    : customers choose their own dish, never the manager.
+          Regular and VIP choose by arrival order:
+          C1 Salad, C2 Burger, C3 Pasta, C4 Salad, C5 Burger, C6 Pasta.
+          A Critic always orders Pasta.
+Offer   : Happy Hour, once per game, started at the start of a turn.
+          It lasts that turn and the next: orders taken then get 20% off
+          after the customer's own discount.
+
+Commands  Host  : S <id> seat one waiting customer | W skip
+          Waiter: S <id> seat | O <id> take order | V <id> serve | W wait
+          Chef  : C <id> cook that customer's order | W wait
+          (the ID can be left out when only one customer fits)
+
+>> Regular C1 arrives and joins the waiting queue (satisfaction 100).
+Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> N
+
+======================= TURN 1 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Happy Hour: OFF (can be started once, at the start of a turn)
+Waiting queue: Regular C1 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: FREE
+Staff tasks available:
+  Host   : S 1 | W
+  Waiter : S 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> S 1
+  Host seated Customer 1 at Table 1.
+Waiter> S 1
+  Invalid: Customer is not in the waiting queue. Choose again (task not used).
+Waiter> O 1
+  Regular C1 ordered Salad for $9.00.
+Chef> C 1
+  Chef prepared one unit of Salad; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 1:  served 0 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 1/18
+Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> N
+
+======================= TURN 2 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Happy Hour: OFF (can be started once, at the start of a turn)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C1  sat 92  ORDERED  order: Salad $9.00 READY
+  Table 2: FREE
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : V 1 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> W
+  Host waits.
+Waiter> V 1
+  Waiter served Salad to Customer 1.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 2:  served 1 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 2/18
+Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> N
+
+======================= TURN 3 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Happy Hour: OFF (can be started once, at the start of a turn)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C1  sat 92  EATING  order: Salad $9.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C1)
+------------------------------------------------------------
+Host> W
+  Host waits.
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 3:  served 1 | unhappy departures 0 | revenue $0.00 | avg satisfaction N/A | turns used 3/18
+
+>> VIP C2 arrives and joins the waiting queue (satisfaction 100).
+Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> N
+
+======================= TURN 4 / 18 =======================
+Revenue: $0.00   Avg satisfaction (paid): N/A   Paid: 0
+Happy Hour: OFF (can be started once, at the start of a turn)
+Waiting queue: VIP C2 (sat 100)
+Tables:
+  Table 1: Regular C1  sat 92  READY_TO_PAY  order: Salad $9.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Host   : S 2 | W
+  Waiter : S 2 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C1
+------------------------------------------------------------
+Host> S 2
+  Host seated Customer 2 at Table 2.
+Waiter> W
+  Waiter waits.
+Chef> W
+  Chef waits.
+  Cashier collected $9.00 from Regular C1.
+------------------------------------------------------------
+End of turn 4:  served 1 | unhappy departures 0 | revenue $9.00 | avg satisfaction 92.0 | turns used 4/18
+Happy Hour? (Y start now / N not now)> Happy Hour? (Y start now / N not now)> Y
+  Happy Hour activated for this turn and the next.
+  Happy Hour: VIP C2 recover 15 satisfaction (max 100).
+
+======================= TURN 5 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 92.0   Paid: 1
+Happy Hour: ON, 2 turns left including this one (orders taken now get 20% off)
+Waiting queue: (empty)
+Tables:
+  Table 1: FREE
+  Table 2: VIP C2  sat 100  SEATED  order: not taken yet
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : O 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> W
+  Host waits.
+Waiter> O 2
+  VIP C2 ordered Burger for $10.80.
+Chef> C 2
+  Chef prepared one unit of Burger; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 5:  served 1 | unhappy departures 0 | revenue $9.00 | avg satisfaction 92.0 | turns used 5/18
+  Happy Hour: VIP C2 recover 15 satisfaction (max 100).
+
+======================= TURN 6 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 92.0   Paid: 1
+Happy Hour: ON, 1 turn left including this one (orders taken now get 20% off)
+Waiting queue: (empty)
+Tables:
+  Table 1: FREE
+  Table 2: VIP C2  sat 100  ORDERED  order: Burger $10.80 READY
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : V 2 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> V 2
+  Waiter served Burger to Customer 2.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 6:  served 2 | unhappy departures 0 | revenue $9.00 | avg satisfaction 92.0 | turns used 6/18
+
+>> Regular C3 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 7 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 92.0   Paid: 1
+Happy Hour: OFF (already used this game)
+Waiting queue: Regular C3 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: VIP C2  sat 100  EATING  order: Burger $10.80 SERVED
+Staff tasks available:
+  Host   : S 3 | W
+  Waiter : S 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C2)
+------------------------------------------------------------
+Host> Host> S 3
+  Host seated Customer 3 at Table 1.
+Waiter> O 3
+  Regular C3 ordered Salad + Pasta Combo for $24.30.
+Chef> C 3
+  Chef prepared one unit of Salad + Pasta Combo; 2 remaining (IN_PROGRESS).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 7:  served 2 | unhappy departures 0 | revenue $9.00 | avg satisfaction 92.0 | turns used 7/18
+
+======================= TURN 8 / 18 =======================
+Revenue: $9.00   Avg satisfaction (paid): 92.0   Paid: 1
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C3  sat 92  ORDERED  order: Salad + Pasta Combo $24.30 IN_PROGRESS (2 units left)
+  Table 2: VIP C2  sat 100  READY_TO_PAY  order: Burger $10.80 SERVED
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : W
+  Chef   : C 3 (Salad + Pasta Combo, 2 left) | W
+  Cashier: automatic, will charge the oldest of C2
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> W
+  Waiter waits.
+Chef> C 3
+  Chef prepared one unit of Salad + Pasta Combo; 1 remaining (IN_PROGRESS).
+  Cashier collected $10.80 from VIP C2.
+------------------------------------------------------------
+End of turn 8:  served 2 | unhappy departures 0 | revenue $19.80 | avg satisfaction 96.0 | turns used 8/18
+
+======================= TURN 9 / 18 =======================
+Revenue: $19.80   Avg satisfaction (paid): 96.0   Paid: 2
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C3  sat 84  ORDERED  order: Salad + Pasta Combo $24.30 IN_PROGRESS (1 unit left)
+  Table 2: FREE
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : W
+  Chef   : C 3 (Salad + Pasta Combo, 1 left) | W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> W
+  Waiter waits.
+Chef> C 3
+  Chef prepared one unit of Salad + Pasta Combo; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 9:  served 2 | unhappy departures 0 | revenue $19.80 | avg satisfaction 96.0 | turns used 9/18
+
+>> Critic C4 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 10 / 18 =======================
+Revenue: $19.80   Avg satisfaction (paid): 96.0   Paid: 2
+Happy Hour: OFF (already used this game)
+Waiting queue: Critic C4 (sat 100)
+Tables:
+  Table 1: Regular C3  sat 76  ORDERED  order: Salad + Pasta Combo $24.30 READY
+  Table 2: FREE
+Staff tasks available:
+  Host   : S 4 | W
+  Waiter : S 4 | V 3 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> Host> S 4
+  Host seated Customer 4 at Table 2.
+Waiter> V 3
+  Waiter served Salad + Pasta Combo to Customer 3.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 10:  served 3 | unhappy departures 0 | revenue $19.80 | avg satisfaction 96.0 | turns used 10/18
+
+======================= TURN 11 / 18 =======================
+Revenue: $19.80   Avg satisfaction (paid): 96.0   Paid: 2
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C3  sat 76  EATING  order: Salad + Pasta Combo $24.30 SERVED
+  Table 2: Critic C4  sat 88  SEATED  order: not taken yet
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : O 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C3)
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> O 4
+  Critic C4 ordered Pasta for $18.00.
+Chef> C 4
+  Chef prepared one unit of Pasta; 1 remaining (IN_PROGRESS).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 11:  served 3 | unhappy departures 0 | revenue $19.80 | avg satisfaction 96.0 | turns used 11/18
+
+======================= TURN 12 / 18 =======================
+Revenue: $19.80   Avg satisfaction (paid): 96.0   Paid: 2
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C3  sat 76  READY_TO_PAY  order: Salad + Pasta Combo $24.30 SERVED
+  Table 2: Critic C4  sat 76  ORDERED  order: Pasta $18.00 IN_PROGRESS (1 unit left)
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : W
+  Chef   : C 4 (Pasta, 1 left) | W
+  Cashier: automatic, will charge the oldest of C3
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> W
+  Waiter waits.
+Chef> C 4
+  Chef prepared one unit of Pasta; 0 remaining (READY).
+  Cashier collected $24.30 from Regular C3.
+------------------------------------------------------------
+End of turn 12:  served 3 | unhappy departures 0 | revenue $44.10 | avg satisfaction 89.3 | turns used 12/18
+
+>> Regular C5 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 13 / 18 =======================
+Revenue: $44.10   Avg satisfaction (paid): 89.3   Paid: 3
+Happy Hour: OFF (already used this game)
+Waiting queue: Regular C5 (sat 100)
+Tables:
+  Table 1: FREE
+  Table 2: Critic C4  sat 64  ORDERED  order: Pasta $18.00 READY
+Staff tasks available:
+  Host   : S 5 | W
+  Waiter : S 5 | V 4 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> Host> S 4
+  Invalid: Customer is not in the waiting queue. Choose again (task not used).
+Host> S 5
+  Host seated Customer 5 at Table 1.
+Waiter> V 4
+  Waiter served Pasta to Customer 4.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 13:  served 4 | unhappy departures 0 | revenue $44.10 | avg satisfaction 89.3 | turns used 13/18
+
+======================= TURN 14 / 18 =======================
+Revenue: $44.10   Avg satisfaction (paid): 89.3   Paid: 3
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C5  sat 92  SEATED  order: not taken yet
+  Table 2: Critic C4  sat 64  EATING  order: Pasta $18.00 SERVED
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : O 5 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C4)
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> O 5
+  Regular C5 ordered Burger for $15.00.
+Chef> C 5
+  Chef prepared one unit of Burger; 0 remaining (READY).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 14:  served 4 | unhappy departures 0 | revenue $44.10 | avg satisfaction 89.3 | turns used 14/18
+
+======================= TURN 15 / 18 =======================
+Revenue: $44.10   Avg satisfaction (paid): 89.3   Paid: 3
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C5  sat 84  ORDERED  order: Burger $15.00 READY
+  Table 2: Critic C4  sat 64  READY_TO_PAY  order: Pasta $18.00 SERVED
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : V 5 | W
+  Chef   : W
+  Cashier: automatic, will charge the oldest of C4
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> V 5
+  Waiter served Burger to Customer 5.
+Chef> W
+  Chef waits.
+  Cashier collected $18.00 from Critic C4.
+------------------------------------------------------------
+End of turn 15:  served 5 | unhappy departures 0 | revenue $62.10 | avg satisfaction 83.0 | turns used 15/18
+
+>> Regular C6 arrives and joins the waiting queue (satisfaction 100).
+
+======================= TURN 16 / 18 =======================
+Revenue: $62.10   Avg satisfaction (paid): 83.0   Paid: 4
+Happy Hour: OFF (already used this game)
+Waiting queue: Regular C6 (sat 100)
+Tables:
+  Table 1: Regular C5  sat 84  EATING  order: Burger $15.00 SERVED
+  Table 2: FREE
+Staff tasks available:
+  Host   : S 6 | W
+  Waiter : S 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay  (eating: C5)
+------------------------------------------------------------
+Host> Host> S 6
+  Host seated Customer 6 at Table 2.
+Waiter> O 6
+  Regular C6 ordered Burger + Salad Combo for $21.60.
+Chef> C 6
+  Chef prepared one unit of Burger + Salad Combo; 1 remaining (IN_PROGRESS).
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 16:  served 5 | unhappy departures 0 | revenue $62.10 | avg satisfaction 83.0 | turns used 16/18
+
+======================= TURN 17 / 18 =======================
+Revenue: $62.10   Avg satisfaction (paid): 83.0   Paid: 4
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: Regular C5  sat 84  READY_TO_PAY  order: Burger $15.00 SERVED
+  Table 2: Regular C6  sat 92  ORDERED  order: Burger + Salad Combo $21.60 IN_PROGRESS (1 unit left)
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : W
+  Chef   : C 6 (Burger + Salad Combo, 1 left) | W
+  Cashier: automatic, will charge the oldest of C5
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> W
+  Waiter waits.
+Chef> C 6
+  Chef prepared one unit of Burger + Salad Combo; 0 remaining (READY).
+  Cashier collected $15.00 from Regular C5.
+------------------------------------------------------------
+End of turn 17:  served 5 | unhappy departures 0 | revenue $77.10 | avg satisfaction 83.2 | turns used 17/18
+
+======================= TURN 18 / 18 =======================
+Revenue: $77.10   Avg satisfaction (paid): 83.2   Paid: 5
+Happy Hour: OFF (already used this game)
+Waiting queue: (empty)
+Tables:
+  Table 1: FREE
+  Table 2: Regular C6  sat 84  ORDERED  order: Burger + Salad Combo $21.60 READY
+Staff tasks available:
+  Host   : nobody waiting | W
+  Waiter : V 6 | W
+  Chef   : W
+  Cashier: automatic, nobody ready to pay
+------------------------------------------------------------
+Host> Host> W
+  Host waits.
+Waiter> V 6
+  Waiter served Burger + Salad Combo to Customer 6.
+Chef> W
+  Chef waits.
+  Cashier: no one is ready to pay.
+------------------------------------------------------------
+End of turn 18:  served 6 | unhappy departures 0 | revenue $77.10 | avg satisfaction 83.2 | turns used 18/18
+
+============================================================
+                        GAME OVER
+============================================================
+[OK] Paid customers     : 5  (need 4)
+[OK] Revenue            : $77.10  (need $45.00)
+[OK] Average satisfaction: 83.2  (need 60)
+     Served 6, unhappy departures 0, turns used 18/18
+
+*** VICTORY! The restaurant hit every target. ***
