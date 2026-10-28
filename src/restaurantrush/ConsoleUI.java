@@ -16,11 +16,13 @@ import java.util.Scanner;
  * prints it, and the controller asks again (brief 3.4).
  *
  * Input commands (case-insensitive, customer IDs are the numbers shown as C1, C2, ...):
+ *   Happy Hour (only asked while it can still be used):  Y start it now  |  N not now
+ *   Host:    S <id> seat one waiting customer  |  W skip
  *   Waiter:  S <id> seat   |  O <id> take order  |  V <id> serve  |  W wait
  *   Chef:    C <id> cook one unit of that customer's order  |  W wait
  * The ID may be left out when exactly one customer fits the task.
  */
-public class ConsoleUI {
+public class ConsoleUI implements GameView {
     private static final String LINE = "------------------------------------------------------------";
 
     private final Scanner in;
@@ -46,12 +48,21 @@ public class ConsoleUI {
     // Game start
     // =====================================================================
 
+    /** Stage 2 entry point, kept until Main passes the menu in. */
     public void showWelcome(GameConfig config) {
+        showWelcome(config, new Menu());
+    }
+
+    @Override
+    public void showWelcome(GameConfig config, Menu menu) {
         out.println("============================================================");
-        out.println("                   RESTAURANT RUSH  (Stage 2)");
+        out.println("                   RESTAURANT RUSH  (Stage 3)");
         out.println("============================================================");
         out.println("Setting : " + config);
-        out.println("Menu    : Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units)");
+        List<MenuItem> items = menu.getItems();
+        for (int i = 0; i < items.size(); i++) {
+            out.println((i == 0 ? "Menu    : " : "          ") + describeItem(items.get(i)));
+        }
         out.println("Goal    : after turn " + config.getMaxTurns() + ", at least "
                 + config.getTargetPaidCustomers() + " paid customers, revenue at least "
                 + Money.format(config.getTargetRevenueCents()) + ", average satisfaction at least "
@@ -63,8 +74,12 @@ public class ConsoleUI {
         out.println("          Regular and VIP choose by arrival order:");
         out.println("          C1 Salad, C2 Burger, C3 Pasta, C4 Salad, C5 Burger, C6 Pasta.");
         out.println("          A Critic always orders Pasta.");
+        out.println("Offer   : Happy Hour, once per game, started at the start of a turn.");
+        out.println("          It lasts that turn and the next: orders taken then get 20% off");
+        out.println("          after the customer's own discount.");
         out.println();
-        out.println("Commands  Waiter: S <id> seat | O <id> take order | V <id> serve | W wait");
+        out.println("Commands  Host  : S <id> seat one waiting customer | W skip");
+        out.println("          Waiter: S <id> seat | O <id> take order | V <id> serve | W wait");
         out.println("          Chef  : C <id> cook that customer's order | W wait");
         out.println("          (the ID can be left out when only one customer fits)");
     }
@@ -73,18 +88,31 @@ public class ConsoleUI {
     // Start-of-turn display (brief 3.1)
     // =====================================================================
 
+    @Override
     public void showArrival(Customer customer) {
         out.println();
         out.println(">> " + label(customer) + " arrives and joins the waiting queue (satisfaction "
                 + customer.getSatisfaction() + ").");
     }
 
+    /** Stage 2 display (no Host, no Happy Hour), kept until the controller uses GameView. */
     public void showTurnStart(int turn, int maxTurns, Restaurant restaurant) {
+        showTurnState(turn, maxTurns, restaurant, null);
+    }
+
+    @Override
+    public void showTurnStart(int turn, int maxTurns, Restaurant restaurant, HappyHourPolicy happyHour) {
+        showTurnState(turn, maxTurns, restaurant, happyHour);
+    }
+
+    /** happyHour is null only for the Stage 2 display. */
+    private void showTurnState(int turn, int maxTurns, Restaurant restaurant, HappyHourPolicy happyHour) {
         out.println();
         out.println("======================= TURN " + turn + " / " + maxTurns + " =======================");
         out.println("Revenue: " + Money.format(restaurant.getRevenueCents())
                 + "   Avg satisfaction (paid): " + formatAverage(restaurant.getAverageSatisfaction())
                 + "   Paid: " + restaurant.getPaidCount());
+        if (happyHour != null) out.println("Happy Hour: " + describeHappyHour(happyHour));
 
         List<Customer> queue = restaurant.getWaitingQueue().getCustomers();
         StringBuilder q = new StringBuilder("Waiting queue: ");
@@ -105,6 +133,7 @@ public class ConsoleUI {
         }
 
         out.println("Staff tasks available:");
+        if (happyHour != null) out.println("  Host   : " + describeHostOptions(restaurant));
         out.println("  Waiter : " + describeWaiterOptions(restaurant));
         out.println("  Chef   : " + describeChefOptions(restaurant));
         out.println("  Cashier: " + describeCashier(restaurant));
@@ -132,6 +161,31 @@ public class ConsoleUI {
             }
         }
         return sb.toString();
+    }
+
+    private static String describeItem(MenuItem item) {
+        return item.getName() + " " + Money.format(item.getPriceCents()) + " (" + item.getPrepUnits()
+                + " unit" + (item.getPrepUnits() == 1 ? "" : "s") + ")";
+    }
+
+    private static String describeHappyHour(HappyHourPolicy happyHour) {
+        if (happyHour.isActive()) {
+            int left = happyHour.getRemainingTurns();
+            return "ON, " + left + " turn" + (left == 1 ? "" : "s")
+                    + " left including this one (orders taken now get 20% off)";
+        }
+        return happyHour.canActivate() ? "OFF (can be started once, at the start of a turn)"
+                                       : "OFF (already used this game)";
+    }
+
+    private String describeHostOptions(Restaurant restaurant) {
+        List<Customer> queue = restaurant.getWaitingQueue().getCustomers();
+        if (queue.isEmpty()) return "nobody waiting | W";
+        if (restaurant.findFreeTable() == null) return "(no free table to seat anyone) | W";
+        List<String> options = new ArrayList<>();
+        for (Customer c : queue) options.add("S " + c.getId());
+        options.add("W");
+        return String.join(" | ", options);
     }
 
     private String describeWaiterOptions(Restaurant restaurant) {
@@ -177,7 +231,43 @@ public class ConsoleUI {
     // Reading the manager's choices
     // =====================================================================
 
+    @Override
+    public boolean askHappyHour(HappyHourPolicy happyHour) {
+        if (!happyHour.canActivate()) return false;
+        while (true) {
+            String line = readCommand("Happy Hour? (Y start now / N not now)> ");
+            if (line == null) return false;
+            String answer = line.split("\\s+")[0].toUpperCase(Locale.ROOT);
+            if (answer.equals("Y") || answer.equals("YES") || answer.equals("ON")) return true;
+            if (answer.equals("N") || answer.equals("NO") || answer.equals("OFF")) return false;
+            out.println("  Invalid: answer Y to start Happy Hour now or N to keep it for later.");
+        }
+    }
+
+    /** Reads one Host command. Returns null to skip. Rule checks happen in Host. */
+    @Override
+    public Integer askHostChoice(Restaurant restaurant) {
+        while (true) {
+            String line = readCommand("Host> ");
+            if (line == null) return null;
+            String[] parts = line.split("\\s+");
+            String cmd = parts[0].toUpperCase(Locale.ROOT);
+            if (cmd.equals("W") || cmd.equals("WAIT") || cmd.equals("SKIP")) return null;
+
+            String[] idParts = parts;
+            if (cmd.matches("C?\\d+")) {               // allow just "3" or "C3" as well as "S 3"
+                idParts = new String[] {"S", parts[0]};
+            } else if (!cmd.equals("S") && !cmd.equals("SEAT")) {
+                out.println("  Invalid: unknown Host command '" + parts[0] + "'. Use S <id> or W.");
+                continue;
+            }
+            Integer id = readId(idParts, idsOf(restaurant.getWaitingQueue().getCustomers()), "seat");
+            if (id != null) return id;
+        }
+    }
+
     /** Reads one Waiter command. Rule checks happen in Waiter, not here. */
+    @Override
     public WaiterChoice askWaiterChoice(Restaurant restaurant) {
         while (true) {
             String line = readCommand("Waiter> ");
@@ -208,6 +298,7 @@ public class ConsoleUI {
     }
 
     /** Reads one Chef command. Returns null for Wait. Rule checks happen in Chef. */
+    @Override
     public Order askChefChoice(Restaurant restaurant) {
         while (true) {
             String line = readCommand("Chef> ");
@@ -237,6 +328,7 @@ public class ConsoleUI {
     }
 
     /** Prints a staff result. A failure means the manager will be asked again. */
+    @Override
     public void showActionResult(ActionResult result) {
         if (result.isSuccess()) {
             out.println("  " + result.getMessage());
@@ -245,6 +337,7 @@ public class ConsoleUI {
         }
     }
 
+    @Override
     public void showDeparture(Customer customer) {
         out.println("  !! C" + customer.getId() + " reached 0 satisfaction and left without paying.");
     }
@@ -253,6 +346,7 @@ public class ConsoleUI {
     // End of turn and end of game (brief 3.5 and 3.2 step 6)
     // =====================================================================
 
+    @Override
     public void showTurnEnd(int turn, Restaurant restaurant) {
         out.println(LINE);
         out.println("End of turn " + turn + ":  served " + restaurant.getServedCount()
@@ -262,6 +356,7 @@ public class ConsoleUI {
                 + " | turns used " + turn + "/" + maxTurns);
     }
 
+    @Override
     public void showFinalResult(boolean victory, Restaurant restaurant) {
         out.println();
         out.println("============================================================");
