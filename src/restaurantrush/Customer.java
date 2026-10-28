@@ -44,6 +44,13 @@ public abstract class Customer {
 
     public abstract String getTypeName();
 
+    /** Restore satisfaction without exceeding 100; used by Happy Hour. */
+    public void recoverSatisfaction(int amount) {
+        if (amount < 0) throw new IllegalArgumentException("Recovery amount cannot be negative");
+        if (status == CustomerStatus.LEFT || status == CustomerStatus.PAID) return;
+        satisfaction = (int) Math.min(100L, (long) satisfaction + amount);
+    }
+
     public boolean hasReachedZero() { return satisfaction == 0; }
 
     public void seatAt(Table table) {
