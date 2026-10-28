@@ -1,0 +1,82 @@
+# Stage 3 recorded run: Host, Happy Hour, a VIP, a Critic and both combos.
+# Each turn: Happy Hour answer (Y/N, asked only until it is used), then Host, Waiter, Chef.
+# T1: the Host seats C1, so the Waiter can take the order in the same turn.
+#     The Waiter first tries to seat C1 again and is refused (task not used).
+N
+S 1
+S 1
+O 1
+C 1
+# T2
+N
+W
+V 1
+W
+# T3
+N
+W
+W
+W
+# T4: VIP C2 arrives and is seated
+N
+S 2
+W
+W
+# T5: Happy Hour on. C2 recovers 15; the VIP Burger costs $15 x 0.9 x 0.8 = $10.80
+Y
+W
+O 2
+C 2
+# T6: Happy Hour's last turn (1 left), C2 recovers again
+W
+V 2
+W
+# T7: Happy Hour is over. C3 orders the Salad + Pasta combo ($24.30, 3 units)
+S 3
+O 3
+C 3
+# T8
+W
+W
+C 3
+# T9
+W
+W
+C 3
+# T10: Critic C4 arrives. Staff constraint: the Host seats C4 while the Waiter serves C3
+S 4
+V 3
+W
+# T11: the Critic orders Pasta
+W
+O 4
+C 4
+# T12
+W
+W
+C 4
+# T13: C5 arrives. The Host first tries C4, who is already seated, and is refused.
+S 4
+S 5
+V 4
+W
+# T14
+W
+O 5
+C 5
+# T15
+W
+V 5
+W
+# T16: C6 arrives and orders the Burger + Salad combo ($21.60, 2 units)
+S 6
+O 6
+C 6
+# T17
+W
+W
+C 6
+# T18
+W
+V 6
+W
