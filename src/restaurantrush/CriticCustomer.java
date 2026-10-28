@@ -20,6 +20,10 @@ public class CriticCustomer extends Customer {
     @Override
     public int calculateBill(int priceCents) { return priceCents; }
 
+    /** The Critic always orders Pasta, so a combo is never offered. */
+    @Override
+    public boolean acceptsCombos() { return false; }
+
     /** Always picks Pasta from the menu, ignoring the arrival-order rule. */
     @Override
     public MenuItem chooseItem(Menu menu) {

@@ -9,6 +9,7 @@ import java.util.Set;
 public class Waiter {
     private final Menu menu;
     private final HappyHourPolicy happyHourPolicy;
+    private final ComboChoiceRule comboChoiceRule = new ComboChoiceRule();
     private final Set<Order> readyAtTurnStart =
             Collections.newSetFromMap(new IdentityHashMap<Order, Boolean>());
 
@@ -181,7 +182,7 @@ public class Waiter {
         }
 
         // Each customer type supplies its own food-choice behaviour.
-        MenuItem item = customer.chooseItem(menu);
+        MenuItem item = comboChoiceRule.choose(customer, menu);
 
         if (item == null || item.getPrepUnits() < 1
                 || item.getPriceCents() < 0) {

@@ -42,6 +42,9 @@ public abstract class Customer {
         return new FoodChoiceRule().choose(id, menu);
     }
 
+    /** Whether this customer may be offered a combo. Customers with a fixed dish say no. */
+    public boolean acceptsCombos() { return true; }
+
     public abstract String getTypeName();
 
     public boolean hasReachedZero() { return satisfaction == 0; }
