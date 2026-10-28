@@ -8,6 +8,7 @@ import java.util.Set;
 /** Executes one valid assignment per turn, before the Chef acts. No console IO. */
 public class Waiter {
     private final Menu menu;
+    private final HappyHourPolicy happyHourPolicy;
     private final Set<Order> readyAtTurnStart =
             Collections.newSetFromMap(new IdentityHashMap<Order, Boolean>());
 
@@ -20,8 +21,16 @@ public class Waiter {
         this(new Menu());
     }
 
+    /** Keeps existing callers working with Happy Hour off. */
     public Waiter(Menu menu) {
+        this(menu, new HappyHourPolicy());
+    }
+
+    /** The controller and Waiter must share this policy instance. */
+    public Waiter(Menu menu, HappyHourPolicy happyHourPolicy) {
         this.menu = Objects.requireNonNull(menu, "menu");
+        this.happyHourPolicy =
+                Objects.requireNonNull(happyHourPolicy, "happyHourPolicy");
     }
 
     /**
@@ -181,12 +190,16 @@ public class Waiter {
         }
 
         // Each customer type supplies its own pricing behaviour.
-        int billCents = customer.calculateBill(item.getPriceCents());
+        // Apply the customer's discount before Happy Hour.
+        int customerBillCents =
+                customer.calculateBill(item.getPriceCents());
 
-        if (billCents < 0) {
+        if (customerBillCents < 0) {
             return ActionResult.failure(
                     "Calculated bill cannot be negative.");
         }
+
+        int billCents = happyHourPolicy.calculateBill(customerBillCents);
 
         // Lock the final bill when the order is taken.
         Order order = new Order(customer, item, billCents);
