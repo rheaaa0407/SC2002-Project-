@@ -80,3 +80,122 @@ The three loss rates show in who leaves:
 - VIP C2 (arrives T4) is still there at turn 18 with satisfaction 30. As a Regular in Stage 1 it left after turn 16.
 
 Saved output: tests/stage2_defeat_output.txt
+
+# Stage 3 test notes
+
+## Reproduce the recorded run
+
+Compile from the repository root:
+
+    javac -Xlint:all -d out-stage3 src/restaurantrush/*.java
+
+Replay through the CLI:
+
+    java -cp out-stage3 restaurantrush.Main --echo < tests/stage3_run.txt
+
+Recorded output: `tests/stage3_output.txt`.
+
+To compare a fresh replay without overwriting the recording:
+
+    java -cp out-stage3 restaurantrush.Main --echo < tests/stage3_run.txt > /tmp/sc2002-stage3-replay.txt
+    diff -u tests/stage3_output.txt /tmp/sc2002-stage3-replay.txt
+
+The replay matched the saved output with no differences.
+
+## Setting and result
+
+The run uses 18 turns, two tables and arrivals on turns 1, 4, 7, 10, 13 and 16.
+C2 is a VIP, C4 is a Critic, and the other customers are Regular.
+Food and combo choices are deterministic.
+
+| Measure | Recorded result | Target |
+|---|---|---|
+| Paid customers | 5 | At least 4 |
+| Revenue | $77.10 | At least $45.00 |
+| Average satisfaction of paid customers | 83.2 | At least 60 |
+| Served customers | 6 | — |
+| Unhappy departures | 0 | — |
+| Turns completed | 18 | 18 |
+
+Outcome: VICTORY. C6 is served on turn 18 but has not paid by the end,
+so C6's bill and satisfaction are excluded from the payment statistics.
+
+## Host and invalid-action handling
+
+- Turn 1: the Host seats C1. The Waiter then attempts to seat C1 again.
+  The action is rejected because C1 is no longer in the waiting queue.
+  The Waiter can still take C1's order during the same turn.
+- Turn 10: the Host seats C4 while the Waiter serves C3, demonstrating
+  that the Host's seating task is additional to the Waiter's task.
+- Turn 13: the Host attempts to seat already-seated C4. The action is
+  rejected without consuming the Host's task; the Host then seats C5.
+
+The log contains two deliberate invalid seating attempts. These are expected
+test cases, not failures of the recorded strategy.
+
+## Happy Hour
+
+Happy Hour is activated at the start of turn 5.
+
+- Turn 5 reports two turns remaining, including the current turn.
+- Turn 6 reports one turn remaining.
+- Turn 7 reports Happy Hour off and already used.
+- Eligible waiting customers receive 15 satisfaction at the start of each
+  active turn, capped at 100. The log records recovery for VIP C2 on both
+  active turns.
+
+The VIP Burger ordered on turn 5 costs:
+
+    $15.00 -> VIP discount: $13.50 -> Happy Hour discount: $10.80
+
+The final bill is stored when the order is created. Happy Hour expires
+before C2 pays on turn 8, but the Cashier still collects $10.80.
+
+## Combos and preparation
+
+| Customer | Ordered | Choice | Locked bill | Preparation |
+|---|---|---|---|---|
+| C3 | Turn 7 | Salad + Pasta Combo | $24.30 | 3 units, turns 7–9 |
+| C6 | Turn 16 | Burger + Salad Combo | $21.60 | 2 units, turns 16–17 |
+
+Combo prices are 90% of the combined item prices:
+
+- Salad + Pasta: ($9.00 + $18.00) × 0.9 = $24.30.
+- Burger + Salad: ($15.00 + $9.00) × 0.9 = $21.60.
+
+C3's combo becomes READY on turn 9 and is served on turn 10.
+C6's combo becomes READY on turn 17 and is served on turn 18.
+Neither is served on the turn its preparation finishes.
+
+## Locked-price payment evidence
+
+| Customer | Payment turn | Amount collected |
+|---|---|---|
+| C1 Regular | 4 | $9.00 |
+| C2 VIP | 8 | $10.80 |
+| C3 Regular | 12 | $24.30 |
+| C4 Critic | 15 | $18.00 |
+| C5 Regular | 17 | $15.00 |
+
+Total collected: $77.10. The unpaid C6 combo is not included.
+
+## Focused Happy Hour checks
+
+Compile and run:
+
+    javac -Xlint:all -d out-stage3 src/restaurantrush/*.java tests/restaurantrush/HappyHourChecks.java tests/restaurantrush/HappyHourWaiterChecks.java
+    java -cp out-stage3 restaurantrush.HappyHourChecks
+    java -cp out-stage3 restaurantrush.HappyHourWaiterChecks
+
+Previously verified results:
+
+- 35 Happy Hour policy checks passed.
+- 114 Happy Hour Waiter checks passed.
+
+The policy checks cover activation, duration, repeat-activation rejection,
+rounding, invalid requests and expiry. The Waiter checks cover Regular,
+VIP and Critic pricing with Happy Hour on and off, displayed prices,
+locked bills and payment after expiry.
+
+These focused checks and the recorded run complement each other.
+The recorded run does not exercise every boundary case.
