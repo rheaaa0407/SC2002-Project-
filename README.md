@@ -125,3 +125,10 @@ None.
 
 ### Note on earlier stage runs
 `Main` is now the Stage 3 game, so the saved Stage 1 and Stage 2 runs are replayed with `Stage1RegressionRunner` and `Stage2RegressionRunner`. They use the earlier schedules and rules and give the same results as before.
+
+The wording on screen is the Stage 3 wording (the banner, labels such as "Regular C1", and the Host and Happy Hour lines), so a line-by-line comparison with the saved Stage 1 and Stage 2 outputs shows only label differences. The game results are identical: the paid count, revenue and average satisfaction in the final result match in all four saved runs. To check the results, compare the result lines only:
+
+    R='GAME OVER|Paid customers|Revenue|Average satisfaction'
+    java -cp out restaurantrush.Stage1RegressionRunner --echo < tests/victory_run.txt | grep -E "$R"
+
+The saved outputs are also reproduced by the plain game when the `stage-1` and `stage-2` tags are checked out (apart from the typed commands, which the saved files echo).
