@@ -87,7 +87,7 @@ Test notes and recorded Stage 2 runs: tests/TEST_NOTES.md.
 
 ## Stage 1 → Stage 2
 
-Change map: 3 classes added, 8 existing classes modified, 14 unchanged (22 Stage 1 classes).
+Change map: 3 classes added, 8 existing classes modified, 14 unchanged (22 Stage 1 classes). /n
 Compare: https://github.com/rheaaa0407/SC2002-Project-/compare/stage-1...stage-2
 
 ### New files
@@ -126,7 +126,7 @@ Test notes and the recorded run (victory, 5 paid, $77.10, average satisfaction 8
 
 ## Stage 2 → Stage 3
 
-Change map: 10 classes added, 7 existing classes modified, 18 unchanged (25 Stage 2 classes).
+Change map: 10 classes added, 7 existing classes modified, 18 unchanged (25 Stage 2 classes)./n
 Compare: https://github.com/rheaaa0407/SC2002-Project-/compare/stage-2...stage-3
 
 ### New files
