@@ -31,7 +31,31 @@ Replay the Stage 2 runs (VIP and Critic, no Host, no combos, no Happy Hour):
 
     java -cp out restaurantrush.Stage2RegressionRunner --echo < tests/stage2_victory_run.txt
     java -cp out restaurantrush.Stage2RegressionRunner --echo < tests/stage2_defeat_run.txt
+    
+## Video timestamps
 
+Video link: <https://docs.google.com/document/d/1610p5Qzy7r5N1w3_hf5JuA_ySWuKAO-17fkasP9NLjQ/edit?usp=sharing>
+
+| Time | Segment | What it shows |
+|---|---|---|
+| 00:14 - 00:52 | Game launching | Compile and launch from project |
+| 02:12 - 02:42 | Manager choices | Choices with a staff constraint |
+| 02:42 - 03:30 | Stage 3 feature | Happy Hour discount in GUI |
+| 02:55 - 04:08 | VIP C2's dish | VIP order cooked, served, paid |
+| 04:41 - 05:00 | Critic behaviour | Critic loses satisfaction faster |
+| 05:00 - 05:43 | Victory run | One full winning game |
+| 05:43 - 06:16 | Defeat run | One full losing game |
+| 06:16 - 06:47 | Stage 1 class diagram | Stage 1 design |
+| 06:47 - 07:15 | Stage 2 class diagram | Stage 2 design |
+| 07:48 - 08:20 | Stage tag comparison | Stage 1 and 2 victory results |
+| 08:20 - 09:24 | Stage 3 class diagram | Stage 3 design |
+| 10:36 - 13:07 | Stage 3 sequence diagram | Happy Hour turn flow |
+
+## Stage tags 
+- Stage 1: https://github.com/rheaaa0407/SC2002-Project-/tree/stage-1
+- Stage 2: https://github.com/rheaaa0407/SC2002-Project-/tree/stage-2
+- Stage 3: https://github.com/rheaaa0407/SC2002-Project-/tree/stage-3
+  
 ## Commands
 Waiter: `S <id>` seat, `O <id>` take order, `V <id>` serve, `W` wait.
 Chef: `C <id>` cook one unit of that customer's order, `W` wait.
