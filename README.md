@@ -36,20 +36,27 @@ Replay the Stage 2 runs (VIP and Critic, no Host, no combos, no Happy Hour):
 
 Video link: <https://docs.google.com/document/d/1610p5Qzy7r5N1w3_hf5JuA_ySWuKAO-17fkasP9NLjQ/edit?usp=sharing>
 
+## Video timestamps
+
+Video link: <https://drive.google.com/file/d/1b2um4PMCP9vezGlm5qi6NYRMxV27_KIL/view?usp=sharing)>
+
 | Time | Segment | What it shows |
 |---|---|---|
-| 00:14 - 00:52 | Game launching | Compile and launch from project |
-| 02:12 - 02:42 | Manager choices | Choices with a staff constraint |
-| 02:42 - 03:30 | Stage 3 feature | Happy Hour discount in GUI |
-| 02:55 - 04:08 | VIP C2's dish | VIP order cooked, served, paid |
-| 04:41 - 05:00 | Critic behaviour | Critic loses satisfaction faster |
-| 05:00 - 05:43 | Victory run | One full winning game |
-| 05:43 - 06:16 | Defeat run | One full losing game |
-| 06:16 - 06:47 | Stage 1 class diagram | Stage 1 design |
-| 06:47 - 07:15 | Stage 2 class diagram | Stage 2 design |
-| 07:48 - 08:20 | Stage tag comparison | Stage 1 and 2 victory results |
-| 08:20 - 09:24 | Stage 3 class diagram | Stage 3 design |
-| 10:36 - 13:07 | Stage 3 sequence diagram | Happy Hour turn flow |
+| 00:07 - 00:15 | Game launching | Compile and launch from the project |
+| 01:59 - 02:29 | Manager choices | Choices with a staff constraint |
+| 02:29 - 03:05 | Stage 3 feature | Happy Hour discount in the GUI |
+| 02:40 - 03:41 | VIP C2's dish | VIP order cooked, served and paid |
+| 04:14 - 04:34 | Critic behaviour | Critic loses satisfaction faster |
+| 04:34 - 05:15 | Victory run | One full winning game |
+| 05:15 - 05:43 | Defeat run | One full losing game |
+| 05:43 - 06:14 | Stage 1 class diagram | Stage 1 design |
+| 06:14 - 06:41 | Stage 2 class diagram | Stage 2 design |
+| 06:41 - 07:38 | Stage 1 → Stage 2 comparison | [Tag compare](https://github.com/rheaaa0407/SC2002-Project-/compare/stage-1...stage-2) and Stage 1 and 2 victory results |
+| 07:38 - 08:45 | Stage 3 class diagram | Stage 3 design |
+| 08:45 - 09:21 | Stage 2 → Stage 3 comparison | [Tag compare](https://github.com/rheaaa0407/SC2002-Project-/compare/stage-2...stage-3) and Stage 2 and 3 victory results |
+| 09:21 - 09:46 | Change map | Classes added, modified and unchanged |
+| 09:46 - 10:56 | SOLID applications | How each SOLID principle is applied |
+| 11:32 - 13:56 | Stage 3 sequence diagram | Happy Hour turn flow |
 
 ## Stage tags 
 - Stage 1: https://github.com/rheaaa0407/SC2002-Project-/tree/stage-1
@@ -87,7 +94,8 @@ Test notes and recorded Stage 2 runs: tests/TEST_NOTES.md.
 
 ## Stage 1 → Stage 2
 
-Change map: 3 classes added, 8 existing classes modified, 14 unchanged (22 Stage 1 classes). /n
+Change map: 3 classes added, 8 existing classes modified, 14 unchanged (22 Stage 1 classes). 
+
 Compare: https://github.com/rheaaa0407/SC2002-Project-/compare/stage-1...stage-2
 
 ### New files
@@ -126,7 +134,8 @@ Test notes and the recorded run (victory, 5 paid, $77.10, average satisfaction 8
 
 ## Stage 2 → Stage 3
 
-Change map: 10 classes added, 7 existing classes modified, 18 unchanged (25 Stage 2 classes)./n
+Change map: 10 classes added, 7 existing classes modified, 18 unchanged (25 Stage 2 classes).
+
 Compare: https://github.com/rheaaa0407/SC2002-Project-/compare/stage-2...stage-3
 
 ### New files
