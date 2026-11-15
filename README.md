@@ -32,13 +32,11 @@ Replay the Stage 2 runs (VIP and Critic, no Host, no combos, no Happy Hour):
     java -cp out restaurantrush.Stage2RegressionRunner --echo < tests/stage2_victory_run.txt
     java -cp out restaurantrush.Stage2RegressionRunner --echo < tests/stage2_defeat_run.txt
     
-## Video timestamps
-
-Video link: <https://docs.google.com/document/d/1610p5Qzy7r5N1w3_hf5JuA_ySWuKAO-17fkasP9NLjQ/edit?usp=sharing>
-
-## Video timestamps
+## Video Link
 
 Video link: <https://drive.google.com/file/d/1b2um4PMCP9vezGlm5qi6NYRMxV27_KIL/view?usp=sharing)>
+
+## Video timestamps
 
 | Time | Segment | What it shows |
 |---|---|---|
